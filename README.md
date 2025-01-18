@@ -75,7 +75,7 @@ The dataset underwent several preprocessing steps to prepare it for model traini
   - **Color Channel Changes**: Adjusted hue, saturation, and brightness to enhance robustness.
   - **Random Cropping**: Introduced variability in spatial dimensions.
 
-These preprocessing steps are integrated into the [`notebooks/data_preprocessing.ipynb`](notebooks/data_preprocessing.ipynb) Jupyter notebook, ensuring consistent augmentation across training and evaluation.
+These preprocessing steps are integrated into the [`notebooks/train_and_quantize.ipynb`](notebooks/train_and_quantize.ipynb) Jupyter notebook, ensuring consistent augmentation across training and evaluation.
 
 ---
 
@@ -125,7 +125,7 @@ Both models are fully fine-tuned on the Student Engagement Dataset, and the trai
 **Training Process**
 
 - **K-Fold Cross-Validation**: 5-fold cross-validation approach to ensure robustness and generalization.
-- **Training Script**: Available in the [`models/custom_model.py`](models/custom_model.py).
+- **Training Script**: Available at [`notebooks/train_and_quantize.ipynb`](notebooks/train_and_quantize.ipynb).
 
 ---
 
@@ -134,6 +134,8 @@ Both models are fully fine-tuned on the Student Engagement Dataset, and the trai
 ### 1. Quantization
 
 After training both models, the best-validated models were saved and subsequently fine-tuned using Quantization-Aware Training (QAT) for 10 epochs with the TensorFlow Model Optimization Toolkit (TFMOT). Post fine-tuning, the models were fully quantized to INT8, including weights, activations, inputs, and outputs. The fully quantized models were saved in TensorFlow Lite (.tflite) format to facilitate deployment on hardware devices.
+
+These steps are performed in the [`notebooks/train_and_quantize.ipynb`](notebooks/train_and_quantize.ipynb) Jupyter notebook.
 
 **Model Variants:**
 
@@ -236,7 +238,7 @@ This section provides detailed instructions on how to run experiments and take m
 
 Inference time is measured using the provided inference scripts in the previous section. Each script runs the model for **1,000 inferences** and reports the mean and standard deviation of the inference times in **milliseconds (ms)**. Additionally, Frames Per Second (FPS) is calculated as the inverse of the mean inference time (FPS = 1 / time).
 
-The results are saved in the experiments/ directory as inference_time_results.csv.
+The results are saved in the [`results/`](results/) directory as a csv file for each model varient on all edge devices.
 
 ### Power Consumption
 Power consumption measurements are performed using the **[Yocto-Amp](https://www.yoctopuce.com/EN/products/usb-electrical-sensors/yocto-amp)** current sensor. Below are the step-by-step instructions:
@@ -262,7 +264,7 @@ Power consumption measurements are performed using the **[Yocto-Amp](https://www
 
 4. **Calculating Power Consumption**
 - Multiply the average current by the input voltage to obtain the average power consumption in mW.
-- The recorded CSV files are saved in the `results/` directory.
+- The recorded CSV files are saved in the [`results/`](results/) directory.
 
 #### Resources
 - [Yocto-Amp User Manual](https://www.yoctopuce.com/EN/products/yocto-amp/doc/YAMPMK01.usermanual.html)
@@ -273,7 +275,14 @@ Power consumption measurements are performed using the **[Yocto-Amp](https://www
 ### Citation
 If you use this repository or its contents in your work, please cite our paper:
 ```bibtex
-
+@INPROCEEDINGS{Abushahla2025,
+  author={Abushahla, Hamza A. and Elmugamer, Lodan and Gharaibeh, Rana and Sajun, Ali Reza and Zualkernan, Imran A.},
+  booktitle={2025 IEEE Global Engineering Education Conference (EDUCON)},
+  title={Real-Time Student Engagement Monitoring on Edge Devices: Deep Learning Meets Efficiency and Privacy},
+  year={2025},
+  pages={1-10},
+  doi={10.1109/EDUCON.2025.1234567}
+}
 ```
 
 ### Contact

@@ -238,7 +238,7 @@ This section provides detailed instructions on how to run experiments and take m
 
 Inference time is measured using the provided inference scripts in the previous section. Each script runs the model for **1,000 inferences** and reports the mean and standard deviation of the inference times in **milliseconds (ms)**. Additionally, Frames Per Second (FPS) is calculated as the inverse of the mean inference time (FPS = 1 / time).
 
-The results are saved in the [`results/`](results/) directory as a csv file for each model varient on all edge devices.
+The results are saved in the [`results/inference_time/`](results/inference_time/) directory as a csv file for each model varient on all edge devices.
 
 ### Power Consumption
 Power consumption measurements are performed using the **[Yocto-Amp](https://www.yoctopuce.com/EN/products/usb-electrical-sensors/yocto-amp)** current sensor. Below are the step-by-step instructions:
@@ -264,7 +264,7 @@ Power consumption measurements are performed using the **[Yocto-Amp](https://www
 
 4. **Calculating Power Consumption**
 - Multiply the average current by the input voltage to obtain the average power consumption in mW.
-- The recorded CSV files are saved in the [`results/`](results/) directory.
+- The recorded CSV files are saved in the [`results/power_consumption/`](results/power_consumption/) directory.
 
 #### Resources
 - [Yocto-Amp User Manual](https://www.yoctopuce.com/EN/products/yocto-amp/doc/YAMPMK01.usermanual.html)

@@ -60,7 +60,7 @@ Each category offers a different balance of performance, power consumption, and 
 
 The [Student Engagement Dataset](https://ieeexplore.ieee.org/document/9607578) employed in this study is a frame-level dataset comprising approximately **19,000 frames** across three distinct behavior classes: **Looking at Screen**, **Looking at Paper**, and **Wandering**
 
-A folder with **sample images**—one from each class—is available in the [`data/sample_images/`](data/sample_images/) directory.
+A folder with **sample images**—one from each class—is available in the [`dataset/`](dataset/) directory.
 
 ### Data Preprocessing
 
@@ -99,7 +99,7 @@ We developed custom deep learning models based on MobileNet architectures. Below
 - **Backbone**: MobileNetV1 pretrained on ImageNet with `alpha=0.25` for compactness.
 - **Additional Layers**: Same layers in the original model.
 
-Both models are fully fine-tuned on the Student Engagement Dataset, and the training scripts, along with configurations, are available in the [`src/models/`](src/models/) directory.
+Both models are fully fine-tuned on the Student Engagement Dataset, and the training scripts, along with configurations, are available in the [`models/`](models/) directory.
 
 ### Model Training Details
 
@@ -125,7 +125,7 @@ Both models are fully fine-tuned on the Student Engagement Dataset, and the trai
 **Training Process**
 
 - **K-Fold Cross-Validation**: 5-fold cross-validation approach to ensure robustness and generalization.
-- **Training Script**: Available in the [`src/models/custom_model.py`](src/models/custom_model.py).
+- **Training Script**: Available in the [`models/custom_model.py`](models/custom_model.py).
 
 ---
 
@@ -138,18 +138,18 @@ After training both models, the best-validated models were saved and subsequentl
 **Model Variants:**
 
 - **Big Model (MobileNetV2-FP32)**
-  - **File Available At**: [`src/models/mobilenet_v2_fp32.tflite`](src/models/mobilenet_v2_fp32.tflite)
+  - **File Available At**: [`models/big_model.tflite`](models/big_model.tflite)
 
 - **Big Model INT8 (MobileNetV2-INT8)**
-  - **File Available At**: [`src/models/mobilenet_v2_int8.tflite`](src/models/mobilenet_v2_int8.tflite)
+  - **File Available At**: [`models/big_model_int8.tflite`](models/big_model_int8.tflite)
 
 - **Small Model (MobileNetV1-FP32)**
-  - **File Available At**: [`src/models/mobilenet_v1_fp32.tflite`](src/models/mobilenet_v1_fp32.tflite)
-
+  - **File Available At**: [`models/small_model.tflite`](models/small_model.tflite)
+    
 - **Small Model INT8 (MobileNetV1-INT8)**
-  - **File Available At**: [`src/models/mobilenet_v1_int8.tflite`](src/models/mobilenet_v1_int8.tflite)
+  - **File Available At**: [`models/small_model_int8.tflite`](models/small_model_int8.tflite)
 
-The INT8 versions (`mobilenet_v2_int8.tflite`, `mobilenet_v1_int8.tflite`) are the fully quantized models optimized for deployment on edge devices.
+The INT8 versions (`big_model_int8.tflite`, `small_model_int8.tflite`) are the fully quantized models optimized for deployment on edge devices.
 
 
 ### 2. Deployment
@@ -162,12 +162,12 @@ Deployment on Sony Spresense involves converting the `.tflite` model to a byte a
 
 1. **Model Conversion**
    - Convert the `.tflite` model to a C-style header (`.h`) file.
-   - **File Available At**: [`src/models/small_model_int8.h`](src/models/small_model_int8.h)
+   - **File Available At**: [`models/small_model_int8.h`](models/small_model_int8.h)
 
 2. **Embedded C Integration**
    - Integrate the `.h` file into an embedded C codebase using TFLM.
    - The embedded C code is an Arduino sketch (`.ino` file).
-   - **File Available At**: [`src/models/Student_engagement.ino`](src/models/Student_engagement.ino)
+   - **File Available At**: [`models/Student_engagement.ino`](models/Student_engagement.ino)
 
 3. **Flashing the Device**
    - Flash the compiled code onto the Sony Spresense device's memory using the Arduino IDE.
@@ -177,7 +177,7 @@ Deployment on Sony Spresense involves converting the `.tflite` model to a byte a
 Deployment on OpenMV Cam H7 and H7 Plus utilizes MicroPython to run inference programs through the OpenMV IDE.
 
 1. **Inference Script**
-   - **Inference Script Available At**: [`src/models/inference_openmv.py`](src/models/inference_openmv.py)
+   - **Inference Script Available At**: [`inference_scripts/inference_openmv.py`](inference_scripts/inference_openmv.py)
    - This script loads the `.tflite` model and performs inference.
 
 2. **Running Inference**
@@ -191,7 +191,7 @@ Deployment on the Google Coral Dev Board involves compiling the `.tflite` model 
    - Use the Edge TPU Compiler to convert the `.tflite` model into a format compatible with the Edge TPU.
 
 2. **Inference Script**
-   - **Inference Script Available At**: [`src/models/inference_coral.py`](src/models/inference_coral.py)
+   - **Inference Script Available At**: [`inference_scripts/inference_coral.py`](inference_scripts/inference_coral.py)
    - This script utilizes the PyCoral API to run inference on the compiled model.
 
 3. **Running Inference**
@@ -202,8 +202,8 @@ Deployment on the Google Coral Dev Board involves compiling the `.tflite` model 
 For devices running a Linux OS with Python support, including Raspberry Pi and NVIDIA edge accelerators, the TFLite interpreter is used to run inference directly using Python scripts.
 
 1. **Inference Scripts**
-   - **Raspberry Pi Inference Script Available At**: [`src/models/inference_raspberry_pi.py`](src/models/inference_raspberry_pi.py)
-   - **NVIDIA Jetson Inference Script Available At**: [`src/models/inference_jetson.py`](src/models/inference_jetson.py)
+   - **Raspberry Pi Inference Script Available At**: [`inference_scripts/inference_raspberry_pi.py`](inference_scripts/inference_raspberry_pi.py)
+   - **NVIDIA Jetson Inference Script Available At**: [`inference_scripts/inference_jetson.py`](inference_scripts/inference_jetson.py)
 
 2. **Running Inference with TFLite**
    - Use the respective Python scripts to load the `.tflite` model and perform inference.
@@ -212,19 +212,19 @@ For devices running a Linux OS with Python support, including Raspberry Pi and N
    - For optimized performance on NVIDIA Jetson devices, the models were converted to the ONNX format and then to TensorRT format.
    - **Files Available At**:
      - **ONNX Files**:
-       - [`src/models/big_model.onnx`](src/models/big_model.onnx)
-       - [`src/models/big_model_int8.onnx`](src/models/big_model_int8.onnx)
-       - [`src/models/small_model.onnx`](src/models/small_model.onnx)
-       - [`src/models/small_model_int8.onnx`](src/models/small_model_int8.onnx)
+       - [`models/big_model.onnx`](models/big_model.onnx)
+       - [`models/big_model_int8.onnx`](models/big_model_int8.onnx)
+       - [`models/small_model.onnx`](models/small_model.onnx)
+       - [`models/small_model_int8.onnx`](models/small_model_int8.onnx)
      - **TensorRT Files**:
-       - [`src/models/big_model.trt`](src/models/big_model.trt)
-       - [`src/models/small_model.trt`](src/models/small_model.trt)
+       - [`models/big_model.trt`](models/big_model.trt)
+       - [`models/small_model.trt`](models/small_model.trt)
 
    - These optimized models leverage GPU acceleration for faster inference.
 
    - **TensorRT Inference Scripts Available At**:
-     - [`src/models/trt_inference_jetson.py`](src/models/trt_inference_jetson.py)
-     - [`src/models/trt10_singleinf.py`](src/models/trt10_singleinf.py)
+     - [`inference_scripts/trt_inference_jetson.py`](inference_scripts/trt_inference_jetson.py)
+     - [`inference_scripts/trt10_singleinf.py`](inference_scripts/trt10_singleinf.py)
 
 ---
 
@@ -262,7 +262,7 @@ Power consumption measurements are performed using the **[Yocto-Amp](https://www
 
 4. **Calculating Power Consumption**
 - Multiply the average current by the input voltage to obtain the average power consumption in mW.
-- The recorded CSV file is saved in the `experiments/` directory.
+- The recorded CSV files are saved in the `results/` directory.
 
 #### Resources
 - [Yocto-Amp User Manual](https://www.yoctopuce.com/EN/products/yocto-amp/doc/YAMPMK01.usermanual.html)

@@ -97,6 +97,8 @@ We developed custom deep learning models based on MobileNet architectures. Below
 - **Backbone**: MobileNetV1 pretrained on ImageNet with `alpha=0.25` for compactness.
 - **Additional Layers**: Same layers in the original model.
 
+Both models are fully fine-tuned on the Student Engagement Dataset, and the training scripts, along with configurations, are available in the [`src/models/`](src/models/) directory.
+
 ### Model Training Details
 
 **General Training Hyperparameters**

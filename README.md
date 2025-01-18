@@ -58,12 +58,6 @@ Each category offers a different balance of performance, power consumption, and 
 
 The [Student Engagement Dataset](https://ieeexplore.ieee.org/document/9607578) employed in this study is a frame-level dataset comprising approximately **19,000 frames** across three distinct behavior classes: **Looking at Screen**, **Looking at Paper**, and **Wandering**
 
-Originally comprising approximately **19,000 frames** from 19 students using the MathSpring platform, the dataset was filtered to ensure equal representation. Each class contains:
-
-- **Screen**: 826 frames
-- **Paper**: 638 frames
-- **Wander**: 509 frames
-
 A folder with **sample images**—one from each class—is available in the [`data/sample_images/`](data/sample_images/) directory.
 
 ### Data Preprocessing

@@ -280,8 +280,8 @@ If you use this repository or its contents in your work, please cite our paper:
   booktitle={2025 IEEE Global Engineering Education Conference (EDUCON)},
   title={Real-Time Student Engagement Monitoring on Edge Devices: Deep Learning Meets Efficiency and Privacy},
   year={2025},
-  pages={1-10},
-  doi={10.1109/EDUCON.2025.1234567}
+  pages={},
+  doi={}
 }
 ```
 

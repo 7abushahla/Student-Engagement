@@ -169,7 +169,7 @@ Deployment on Sony Spresense involves converting the `.tflite` model to a byte a
 2. **Embedded C Integration**
    - Integrate the `.h` file into an embedded C codebase using TFLM.
    - The embedded C code is an Arduino sketch (`.ino` file).
-   - **File Available At**: [`models/Student_engagement.ino`](models/Student_engagement.ino)
+   - **File Available At**: [`models/inference_sony.ino`](models/inference_sony.ino)
 
 3. **Flashing the Device**
    - Flash the compiled code onto the Sony Spresense device's memory using the Arduino IDE.
